@@ -17,3 +17,23 @@ export const sellProduct = (name, num) => {
     },
   };
 };
+
+export const deleteProduct = (item) => {
+  return {
+    type: "DELETE_PRODUCT",
+    payLoad: {
+      product: item.product,
+      quantity: item.quantity,
+    },
+  };
+};
+
+export const editProduct = (item) => {
+  return {
+    type: "EDIT_PRODUCT",
+    payLoad: {
+      product: item.product,
+      quantity: item.quantity,
+    },
+  };
+};

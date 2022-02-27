@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import Home from "./Home";
 import { useDispatch, useSelector } from "react-redux";
-import { buyProduct } from "../actions/index";
+import { buyProduct, deleteProduct } from "../actions/index";
 
 export default function Buy() {
   const [text, setText] = useState("");
   const [number, setNumber] = useState("");
+  let sn = 0;
 
   const dispatch = useDispatch();
   const buyDetails = useSelector((state) => state.buyReducer.buyDetails);
@@ -42,16 +43,33 @@ export default function Buy() {
         <table>
           <thead>
             <tr>
+              <th>S.N</th>
               <th>Product</th>
               <th>Quantity</th>
             </tr>
           </thead>
           <tbody>
             {buyDetails.map((item) => {
+              const handleDelete = () => {
+                dispatch(deleteProduct(item));
+              };
+
+              const handleEdit = () => {
+                dispatch(deleteProduct(item));
+                setText(item.product);
+                setNumber(item.quantity);
+              };
+              sn++;
               return (
                 <tr>
+                  <td>{sn}</td>
                   <td>{item.product}</td>
                   <td>{item.quantity}</td>
+                  <button onClick={handleDelete}>Delete</button>
+
+                  <button>
+                    <i onClick={handleEdit}>Edit</i>
+                  </button>
                 </tr>
               );
             })}

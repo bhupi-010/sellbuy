@@ -60,6 +60,32 @@ const buyReducer = (state = initialState, action) => {
 
       return state;
 
+    case "DELETE_PRODUCT":
+      const check = state.buyDetails.find(
+        (buyDetail) =>
+          buyDetail.product === action.payLoad.product &&
+          buyDetail.quantity === action.payLoad.quantity
+      );
+      const buyDelete = state.buyDetails.filter((item) => item !== check);
+      const checkDel = state.products.find(
+        (pro) => pro.product === action.payLoad.product
+      );
+      const delQuan =
+        parseInt(checkDel.quantity) - parseInt(action.payLoad.quantity);
+      const delPro = checkDel.product;
+
+      const stockDelete = state.products.filter(
+        (item) => item.product !== action.payLoad.product
+      );
+      return {
+        ...state,
+        buyDetails: buyDelete,
+        products: [...stockDelete, { product: delPro, quantity: delQuan }],
+      };
+
+    case "EDIT_PRODUCT":
+      return state;
+
     default:
       return state;
   }
