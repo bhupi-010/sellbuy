@@ -11,10 +11,14 @@ export default function Sell() {
   const sellDetails = useSelector((state) => state.buyReducer.sellDetails);
 
   const handleSell = () => {
-    dispatch(sellProduct(text, number));
+    if (text.trim() === "" || number.trim() === "" || number <= 0) {
+      alert("Please enter valid values");
+    } else {
+      dispatch(sellProduct(text, number));
 
-    setText("");
-    setNumber("");
+      setText("");
+      setNumber("");
+    }
   };
   return (
     <div>

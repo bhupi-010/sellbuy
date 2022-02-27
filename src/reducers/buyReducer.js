@@ -39,13 +39,16 @@ const buyReducer = (state = initialState, action) => {
       return state;
 
     case "SELL_PRODUCT":
-      const checkSell = state.products.find(
+      const checkProduct = state.products.find(
         (pro) => pro.product === action.payLoad.product
       );
-      if (checkSell) {
+      const checkQuantity = state.products.find(
+        (pro) => pro.quantity >= action.payLoad.quantity
+      );
+      if (checkProduct && checkQuantity) {
         const sellQuan =
-          parseInt(checkSell.quantity) - parseInt(action.payLoad.quantity);
-        const sellPro = checkSell.product;
+          parseInt(checkQuantity.quantity) - parseInt(action.payLoad.quantity);
+        const sellPro = checkProduct.product;
         const newProducts = state.products.filter(
           (item) => item.product !== action.payLoad.product
         );
@@ -55,7 +58,11 @@ const buyReducer = (state = initialState, action) => {
           sellDetails: [...state.sellDetails, action.payLoad],
         };
       } else {
-        alert("Product not available");
+        if (checkProduct) {
+          alert("only" + checkProduct.quantity + " stock quantity available");
+        } else {
+          alert("product out of stock");
+        }
       }
 
       return state;

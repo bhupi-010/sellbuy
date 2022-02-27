@@ -12,10 +12,14 @@ export default function Buy() {
   const buyDetails = useSelector((state) => state.buyReducer.buyDetails);
 
   const handleBuy = () => {
-    dispatch(buyProduct(text, number));
+    if (text.trim() === "" || number.trim() === "" || number <= 0) {
+      alert("Please enter valid values");
+    } else {
+      dispatch(buyProduct(text, number));
 
-    setText("");
-    setNumber("");
+      setText("");
+      setNumber("");
+    }
   };
   return (
     <div>
