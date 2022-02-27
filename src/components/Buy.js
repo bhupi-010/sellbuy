@@ -61,7 +61,7 @@ export default function Buy() {
               };
               sn++;
               return (
-                <tr>
+                <tr key={item.id}>
                   <td>{sn}</td>
                   <td>{item.product}</td>
                   <td>{item.quantity}</td>

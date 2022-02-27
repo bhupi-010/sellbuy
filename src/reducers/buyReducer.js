@@ -61,12 +61,9 @@ const buyReducer = (state = initialState, action) => {
       return state;
 
     case "DELETE_PRODUCT":
-      const check = state.buyDetails.find(
-        (buyDetail) =>
-          buyDetail.product === action.payLoad.product &&
-          buyDetail.quantity === action.payLoad.quantity
+      const buyDelete = state.buyDetails.filter(
+        (item) => item.id !== action.payLoad.id
       );
-      const buyDelete = state.buyDetails.filter((item) => item !== check);
       const checkDel = state.products.find(
         (pro) => pro.product === action.payLoad.product
       );
@@ -82,9 +79,6 @@ const buyReducer = (state = initialState, action) => {
         buyDetails: buyDelete,
         products: [...stockDelete, { product: delPro, quantity: delQuan }],
       };
-
-    case "EDIT_PRODUCT":
-      return state;
 
     default:
       return state;
