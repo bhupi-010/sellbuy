@@ -34,7 +34,7 @@ export default function Buy() {
           value={text}
         />
         <br />
-        <label> Product Quaantity</label>
+        <label> Product Quantity</label>
         <input
           type="number"
           onChange={(e) => setNumber(e.target.value)}
